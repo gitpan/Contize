@@ -1,0 +1,10 @@
+Revision history for Perl extension Contize.
+
+Fri Jul 23 17:56:35 MST 2004  awwaiid@thelackthereof.org
+  * tagged 0.1
+  * Initial import
+
+0.01  Fri Jul 23 17:52:32 2004
+	- original version; created by h2xs 1.23 with options
+		-Xn Contize
+

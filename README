@@ -1,0 +1,42 @@
+Contize version 0.1
+====================
+
+Fake Continuations for a Perl Object
+
+Contize is a sort of proxy object. You create an instance of your original
+object, and then give it to Contize.  Contize then takes over that object (and
+you work with the Contize object but pretend it is still the original) and lets
+the object pretend that it can be suspended and restarted.
+
+This is a pretty trick concept, and the best way to get your brain around the
+whole thing is to contemplate why I created it in the first place, namely so
+that I can do Continuation-based Web Programming in Perl CGI programs.
+
+Thats all for now... see the website for more info.
+
+  http://thelackthereof.org/wiki.pl/Contize
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DEPENDENCIES
+
+This module requires doesn't have any extra dependencies, I think.
+
+COPYRIGHT AND LICENCE
+
+Put the correct copyright and licence information here.
+
+Copyright (C) 2004 by Brock Wilcox <awwaiid@thelackthereof.org>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.8.4 or,
+at your option, any later version of Perl 5 you may have available.
+
+
