@@ -1,20 +1,38 @@
-Contize version 0.1
+Contize version 0.2
 ====================
 
-Fake Continuations for a Perl Object
+Fake Continuations for a Perl Object. Sort of.
 
-Contize is a sort of proxy object. You create an instance of your original
-object, and then give it to Contize.  Contize then takes over that object (and
-you work with the Contize object but pretend it is still the original) and lets
-the object pretend that it can be suspended and restarted.
+Contize is primarily meant to be useful in the context of CGI programming. It
+effectively alters the programmer's view of what is happening -- changing it
+from a program which is run and re-run with each input/output into a program
+which is continuously run, sending output and then pausing for input at certain
+intervals. Documentation on using Contize for this style of CGI programming can
+be found elsewhere for now.
 
-This is a pretty trick concept, and the best way to get your brain around the
-whole thing is to contemplate why I created it in the first place, namely so
-that I can do Continuation-based Web Programming in Perl CGI programs.
+Contize helps an object to be suspendable and resumeable. For this to happen
+the object must be Contized, which is a lot like being blessed or Memoized.
+Once an object has been Contized several new methods are provided to it. The
+two most important methods are suspend and resume.
 
-Thats all for now... see the website for more info.
+The suspend method logically replaces the normal return statement. So instead
+of a method returning its results directly it instead does
+"$self->suspend(@results)". The suspend method contains an 'exit', so upon
+suspend the entire process is terminated. In order to succesfully be resumed at
+a later point, the owner of this object should have an END block which saves
+the Contized object to long-term storage.
 
-  http://thelackthereof.org/wiki.pl/Contize
+The resume method is called by the program after it has restored the Contized
+object from long-term storage. This restores the objects internal state so that
+subsequent calls to its methods will (more or less) pick up right where they
+left off. So, if you have a CGI::Session object for example, you might have
+something like this:
+
+  my $obj = $session->param('obj') || new Contize(new MyObj);
+  $obj->resume();
+  $obj->run();
+
+Fun, eh? Also see http://thelackthereof.org/wiki.pl/Contize
 
 INSTALLATION
 
@@ -30,8 +48,6 @@ DEPENDENCIES
 This module requires doesn't have any extra dependencies, I think.
 
 COPYRIGHT AND LICENCE
-
-Put the correct copyright and licence information here.
 
 Copyright (C) 2004 by Brock Wilcox <awwaiid@thelackthereof.org>
 
